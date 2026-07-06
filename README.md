@@ -94,7 +94,7 @@ After that this repo can be cloned and the initial install requires the script [
 
 1. Install the `micro_ros_setup` package
 2. Set up a new `micro_ros_node`
-3. Install MuJoCo for physics simulation: `pip install mujoco>=2.2.0`
+3. Install MuJoCo for physics simulation: 'pip3 install --break-system-packages mujoco' and viewer: 'pip3 install --break-system-packages mujoco-python-viewer'
 4. Build all packages
 5. Install `ros-jazzy-urdf-launch` for RViz
 6. Install `ros-jazzy-webots-ros2` for Webots simulation

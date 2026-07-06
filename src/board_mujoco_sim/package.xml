@@ -15,7 +15,6 @@
   <depend>sensor_msgs</depend>
   <depend>board_recorder_interfaces</depend>
   
-  <exec_depend>rclpy</depend>
   <exec_depend>board_description</exec_depend>
 
   <test_depend>ament_copyright</test_depend>

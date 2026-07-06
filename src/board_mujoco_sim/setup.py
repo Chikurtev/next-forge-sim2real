@@ -1,4 +1,6 @@
-from setuptools import find_packages, setup
+import os
+from glob import glob
+from setuptools import find_packages, setup  # Фиксирано: 'from' вместо 'rom'
 
 package_name = 'board_mujoco_sim'
 
@@ -10,6 +12,11 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
+        
+        # АВТОМАТИЧНО ВКЛЮЧВАНЕ НА LAUNCH И MODELS ПАПКИ (Ако ги имате)
+        # Това гарантира, че ROS2 ще намери XML моделите и launch скриптовете
+        (os.path.join('share', package_name, 'launch'), glob(os.path.join('launch', '*launch.[pxy][yma]*'))),
+        (os.path.join('share', package_name, 'models'), glob(os.path.join('models', '*'))),
     ],
     install_requires=['setuptools', 'mujoco>=2.2.0'],
     zip_safe=True,
@@ -25,11 +32,9 @@ setup(
         'License :: OSI Approved :: BSD License',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',  # Добавено: Ubuntu 24.04 ползва Python 3.12
     ],
     description='MuJoCo simulation for task board digital twin',
     long_description='Integration of MuJoCo physics simulation with ROS2 for the task board project',
