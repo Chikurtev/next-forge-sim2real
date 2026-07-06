@@ -1,296 +1,606 @@
-<?xml version="1.0"?>
 <mujoco model="task_board">
-    <!-- Simulation parameters -->
-    <option timestep="0.002" integrator="RK4" gravity="0 0 -9.81">
-        <flag energy="enable" contact="enable" />
-    </option>
+    <compiler angle="radian" />
 
-    <!-- Compiler settings with correct mesh directory paths -->
-    <compiler meshdir="../meshes" texturedir="textures" angle="radian" autolimits="false"
-        balanceinertia="false" />
-
-    <!-- Default contacts and materials -->
-    <default>
-        <default class="material_default">
-            <material specular="0.5" shininess="0.5" />
-        </default>
-        <default class="contact_default">
-            <geom condim="4" friction="0.5 0.5 0.0001" solimp="0.9 0.99 0.001" solref="0.02 1" />
-        </default>
-        <default class="task_board_visual">
-            <geom contype="0" conaffinity="0" />
-        </default>
-        <default class="task_board_collision">
-            <geom rgba="0.9 0.9 0.9 1.0" group="3" />
-        </default>
-        <default class="task_board_cable_plug_collision">
-            <geom rgba="1.0 0.0 0.0 1.0" group="3" />
-        </default>
-    </default>
-
-    <!-- Assets - mesh definitions -->
     <asset>
-        <!-- Main board meshes -->
-        <mesh name="TaskBoardBody" file="stl/TaskBoardMain.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBody_001" file="stl/UCX_TaskBoardMain_001.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBody_002" file="stl/UCX_TaskBoardMain_002.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBody_003" file="stl/UCX_TaskBoardMain_003.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBody_004" file="stl/UCX_TaskBoardMain_004.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBody_005" file="stl/UCX_TaskBoardMain_005.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBody_006" file="stl/UCX_TaskBoardMain_006.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBody_007" file="stl/UCX_TaskBoardMain_007.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBody_008" file="stl/UCX_TaskBoardMain_008.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBody_009" file="stl/UCX_TaskBoardMain_009.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBody_010" file="stl/UCX_TaskBoardMain_010.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBody_011" file="stl/UCX_TaskBoardMain_011.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBody_012" file="stl/UCX_TaskBoardMain_012.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBody_013" file="stl/UCX_TaskBoardMain_013.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBody_014" file="stl/UCX_TaskBoardMain_014.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBody_015" file="stl/UCX_TaskBoardMain_015.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBody_016" file="stl/UCX_TaskBoardMain_016.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBody_017" file="stl/UCX_TaskBoardMain_017.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBody_018" file="stl/UCX_TaskBoardMain_018.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBody_019" file="stl/UCX_TaskBoardMain_019.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBody_020" file="stl/UCX_TaskBoardMain_020.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBody_021" file="stl/UCX_TaskBoardMain_021.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBody_022" file="stl/UCX_TaskBoardMain_022.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBody_023" file="stl/UCX_TaskBoardMain_023.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBody_024" file="stl/UCX_TaskBoardMain_024.stl" scale="1.0 1.0 1.0" />
-        <!-- M5StickC and slider meshes -->
-        <mesh name="TaskBoardM5StickC" file="stl/TaskBoardM5StickC.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardM5StickC_001" file="stl/UCX_TaskBoardM5StickC_001.stl"
-            scale="1.0 1.0 1.0" />
-        <mesh name="TaskBoardSlider" file="stl/TaskBoardSlider.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardSlider_001" file="stl/UCX_TaskBoardSlider_001.stl"
-            scale="1.0 1.0 1.0" />
-        <!-- Banana plug meshes -->
-        <mesh name="TaskBoardBananaPlug" file="stl/TaskBoardBananaPlug.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBananaPlugPort_001" file="stl/UCX_TaskBoardBananaPlugPort_001.stl"
-            scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBananaPlugPort_002" file="stl/UCX_TaskBoardBananaPlugPort_002.stl"
-            scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBananaPlugPort_003" file="stl/UCX_TaskBoardBananaPlugPort_003.stl"
-            scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBananaPlugPort_004" file="stl/UCX_TaskBoardBananaPlugPort_004.stl"
-            scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBananaPlugPort_005" file="stl/UCX_TaskBoardBananaPlugPort_005.stl"
-            scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardBananaPlugPort_006" file="stl/UCX_TaskBoardBananaPlugPort_006.stl"
-            scale="1.0 1.0 1.0" />
-        <!-- Probe meshes -->
-        <mesh name="TaskBoardProbe" file="stl/TaskBoardProbe.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardProbe_001" file="stl/UCX_TaskBoardProbe_001.stl"
-            scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardProbe_002" file="stl/UCX_TaskBoardProbe_002.stl"
-            scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardProbe_003" file="stl/UCX_TaskBoardProbe_003.stl"
-            scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardProbe_004" file="stl/UCX_TaskBoardProbe_004.stl"
-            scale="1.0 1.0 1.0" />
-        <!-- Cable plug meshes -->
-        <mesh name="TaskBoardCablePlug" file="stl/TaskBoardCablePlug.stl" scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardCablePlug_001" file="stl/UCX_TaskBoardCablePlug_001.stl"
-            scale="1.0 1.0 1.0" />
-        <mesh name="UCX_TaskBoardCablePlug_002" file="stl/UCX_TaskBoardCablePlug_002.stl"
-            scale="1.0 1.0 1.0" />
+        <mesh name="UCX_TaskBoardMain_001" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardMain_001.stl" />
+        <mesh name="UCX_TaskBoardMain_002" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardMain_002.stl" />
+        <mesh name="UCX_TaskBoardMain_003" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardMain_003.stl" />
+        <mesh name="UCX_TaskBoardMain_004" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardMain_004.stl" />
+        <mesh name="UCX_TaskBoardMain_005" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardMain_005.stl" />
+        <mesh name="UCX_TaskBoardMain_006" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardMain_006.stl" />
+        <mesh name="UCX_TaskBoardMain_007" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardMain_007.stl" />
+        <mesh name="UCX_TaskBoardMain_008" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardMain_008.stl" />
+        <mesh name="UCX_TaskBoardMain_009" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardMain_009.stl" />
+        <mesh name="UCX_TaskBoardMain_010" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardMain_010.stl" />
+        <mesh name="UCX_TaskBoardMain_011" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardMain_011.stl" />
+        <mesh name="UCX_TaskBoardMain_012" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardMain_012.stl" />
+        <mesh name="UCX_TaskBoardMain_013" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardMain_013.stl" />
+        <mesh name="UCX_TaskBoardMain_014" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardMain_014.stl" />
+        <mesh name="UCX_TaskBoardMain_015" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardMain_015.stl" />
+        <mesh name="UCX_TaskBoardMain_016" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardMain_016.stl" />
+        <mesh name="UCX_TaskBoardMain_017" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardMain_017.stl" />
+        <mesh name="UCX_TaskBoardMain_018" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardMain_018.stl" />
+        <mesh name="UCX_TaskBoardMain_019" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardMain_019.stl" />
+        <mesh name="UCX_TaskBoardMain_020" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardMain_020.stl" />
+        <mesh name="UCX_TaskBoardMain_021" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardMain_021.stl" />
+        <mesh name="UCX_TaskBoardMain_022" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardMain_022.stl" />
+        <mesh name="UCX_TaskBoardMain_023" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardMain_023.stl" />
+        <mesh name="UCX_TaskBoardMain_024" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardMain_024.stl" />
+        <mesh name="UCX_TaskBoardHoleSide_001" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardHoleSide_001.stl" />
+        <mesh name="UCX_TaskBoardSlider_001" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardSlider_001.stl" />
+        <mesh name="UCX_TaskBoardCableWrapPostLeft_001" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardCableWrapPostLeft_001.stl" />
+        <mesh name="UCX_TaskBoardCableWrapPostLeft_002" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardCableWrapPostLeft_002.stl" />
+        <mesh name="UCX_TaskBoardCableWrapPostLeft_003" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardCableWrapPostLeft_003.stl" />
+        <mesh name="UCX_TaskBoardCableWrapPostLeft_004" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardCableWrapPostLeft_004.stl" />
+        <mesh name="UCX_TaskBoardCableWrapPostLeft_005" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardCableWrapPostLeft_005.stl" />
+        <mesh name="UCX_TaskBoardCableWrapPostLeft_006" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardCableWrapPostLeft_006.stl" />
+        <mesh name="UCX_TaskBoardCableWrapPostLeft_007" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardCableWrapPostLeft_007.stl" />
+        <mesh name="UCX_TaskBoardCableWrapPostLeft_008" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardCableWrapPostLeft_008.stl" />
+        <mesh name="UCX_TaskBoardCableWrapPostLeft_009" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardCableWrapPostLeft_009.stl" />
+        <mesh name="UCX_TaskBoardCableWrapPostLeft_010" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardCableWrapPostLeft_010.stl" />
+        <mesh name="UCX_TaskBoardCableWrapPostLeft_011" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardCableWrapPostLeft_011.stl" />
+        <mesh name="UCX_TaskBoardBananaPlugPort_001" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardBananaPlugPort_001.stl" />
+        <mesh name="UCX_TaskBoardBananaPlugPort_002" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardBananaPlugPort_002.stl" />
+        <mesh name="UCX_TaskBoardBananaPlugPort_003" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardBananaPlugPort_003.stl" />
+        <mesh name="UCX_TaskBoardBananaPlugPort_004" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardBananaPlugPort_004.stl" />
+        <mesh name="UCX_TaskBoardBananaPlugPort_005" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardBananaPlugPort_005.stl" />
+        <mesh name="UCX_TaskBoardBananaPlugPort_006" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardBananaPlugPort_006.stl" />
+        <mesh name="UCX_TaskBoardM5StickC_001" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardM5StickC_001.stl" />
+        <mesh name="UCX_TaskBoardCableWrapPostRight_001" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardCableWrapPostRight_001.stl" />
+        <mesh name="UCX_TaskBoardCableWrapPostRight_002" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardCableWrapPostRight_002.stl" />
+        <mesh name="UCX_TaskBoardCableWrapPostRight_003" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardCableWrapPostRight_003.stl" />
+        <mesh name="UCX_TaskBoardCableWrapPostRight_004" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardCableWrapPostRight_004.stl" />
+        <mesh name="UCX_TaskBoardCableWrapPostRight_005" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardCableWrapPostRight_005.stl" />
+        <mesh name="UCX_TaskBoardCableWrapPostRight_006" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardCableWrapPostRight_006.stl" />
+        <mesh name="UCX_TaskBoardCableWrapPostRight_007" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardCableWrapPostRight_007.stl" />
+        <mesh name="UCX_TaskBoardCableWrapPostRight_008" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardCableWrapPostRight_008.stl" />
+        <mesh name="UCX_TaskBoardCableWrapPostRight_009" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardCableWrapPostRight_009.stl" />
+        <mesh name="UCX_TaskBoardCableWrapPostRight_010" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardCableWrapPostRight_010.stl" />
+        <mesh name="UCX_TaskBoardCableWrapPostRight_011" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardCableWrapPostRight_011.stl" />
+        <mesh name="UCX_TaskBoardLid_001" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardLid_001.stl" />
+        <mesh name="UCX_TaskBoardProbe_001" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardProbe_001.stl" />
+        <mesh name="UCX_TaskBoardProbe_002" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardProbe_002.stl" />
+        <mesh name="UCX_TaskBoardProbe_003" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardProbe_003.stl" />
+        <mesh name="UCX_TaskBoardProbe_004" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardProbe_004.stl" />
+        <mesh name="UCX_TaskBoardCablePlug_001" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardCablePlug_001.stl" />
+        <mesh name="UCX_TaskBoardCablePlug_002" content_type="model/stl"
+            file="meshes/stl/UCX_TaskBoardCablePlug_002.stl" />
     </asset>
 
-    <!-- World body with task board components -->
     <worldbody>
-        <!-- Task board root body -->
-        <body name="task_board" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0">
-            <!-- Task board main structure -->
-            <body name="task_board_main" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0">
-                <!-- Main board body -->
-                <body name="task_board_body" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0">
-                    <inertial mass="7.616941928863525"
-                        pos="-0.0011780796339735389 -3.9309339626925066e-05 -0.039935238659381866"
-                        quat="0.00119794683996588 0.6997284293174744 0.007045551668852568 0.7143731713294983"
-                        diaginertia="0.05582557991147041 0.04489736631512642 0.018900347873568535" />
-
-                    <!-- Visual geometry -->
-                    <geom name="task_board_body_visual" type="mesh"
-                        pos="-0.0013512435834854841 -4.9608697736402974e-05 -0.039861757308244705"
-                        quat="0.0014318180037662387 0.6994011998176575 0.007516392506659031 0.7146883606910706"
-                        mesh="TaskBoardBody" rgba="0.5 0.5 0.5 1.0" class="task_board_visual" />
-
-                    <!-- Collision geometry -->
-                    <geom name="task_board_body_collision_001" type="mesh"
-                        pos="-0.0006921887979842722 0.0005634986446239054 -0.07817842066287994"
-                        quat="0.0 0.7071067690849304 0.0 0.7071067690849304"
-                        mesh="UCX_TaskBoardBody_001" class="task_board_collision" />
-                    <geom name="task_board_body_collision_002" type="mesh"
-                        pos="-0.0007403581403195858 -0.07277718186378479 -0.040174443274736404"
-                        quat="0.5065849423408508 0.4933449923992157 0.506567120552063 0.49332764744758606"
-                        mesh="UCX_TaskBoardBody_002" class="task_board_collision" />
-                    <geom name="task_board_body_collision_003" type="mesh"
-                        pos="-0.0007051100837998092 0.07390077412128448 -0.04017476737499237"
-                        quat="0.49333223700523376 0.5065765380859375 0.4933401346206665 0.5065757632255554"
-                        mesh="UCX_TaskBoardBody_003" class="task_board_collision" />
-                    <geom name="task_board_body_collision_004" type="mesh"
-                        pos="-0.1272374540567398 0.000563445792067796 -0.040238115936517715"
-                        quat="0.7070314288139343 0.7070314288139343 0.010323220863938332 -0.010323220863938332"
-                        mesh="UCX_TaskBoardBody_004" class="task_board_collision" />
-                    <geom name="task_board_body_collision_005" type="mesh"
-                        pos="0.12583637237548828 0.000556890678126365 -0.04023807868361473"
-                        quat="0.7070314288139343 0.7070314288139343 -0.010323233902454376 0.010323233902454376"
-                        mesh="UCX_TaskBoardBody_005" class="task_board_collision" />
-                    <geom name="task_board_body_collision_006" type="mesh"
-                        pos="0.09508127719163895 0.0005627145292237401 -0.0016510002315044403"
-                        quat="0.49999669194221497 0.5000033378601074 -0.49999669194221497 0.5000033378601074"
-                        mesh="UCX_TaskBoardBody_006" class="task_board_collision" />
-                    <geom name="task_board_body_collision_007" type="mesh"
-                        pos="-0.10720948874950409 0.0005629970692098141 -0.0016510002315044403"
-                        quat="0.500001072883606 0.49999892711639404 -0.500001072883606 0.49999892711639404"
-                        mesh="UCX_TaskBoardBody_007" class="task_board_collision" />
-                    <geom name="task_board_body_collision_008" type="mesh"
-                        pos="-0.08628399670124054 0.025334490463137627 -0.0016510002315044403"
-                        quat="0.7071067690849304 0.7071067690849304 0.0 0.0"
-                        mesh="UCX_TaskBoardBody_008" class="task_board_collision" />
-                    <geom name="task_board_body_collision_009" type="mesh"
-                        pos="-0.04828399792313576 -0.056859493255615234 -0.0016510002315044403"
-                        quat="0.0 0.7071067690849304 0.0 0.7071067690849304"
-                        mesh="UCX_TaskBoardBody_009" class="task_board_collision" />
-                    <geom name="task_board_body_collision_010" type="mesh"
-                        pos="0.02357950061559677 -0.06173449009656906 -0.0016510002315044403"
-                        quat="0.0 0.7071067690849304 0.0 0.7071067690849304"
-                        mesh="UCX_TaskBoardBody_010" class="task_board_collision" />
-                    <geom name="task_board_body_collision_011" type="mesh"
-                        pos="0.06044299528002739 -0.06620799005031586 -0.0016510002315044403"
-                        quat="0.5 0.5 -0.5 0.5" mesh="UCX_TaskBoardBody_011"
-                        class="task_board_collision" />
-                    <geom name="task_board_body_collision_012" type="mesh"
-                        pos="0.034579500555992126 -0.032332997769117355 -0.0016510002315044403"
-                        quat="0.0 0.7071067690849304 0.0 0.7071067690849304"
-                        mesh="UCX_TaskBoardBody_012" class="task_board_collision" />
-                    <geom name="task_board_body_collision_013" type="mesh"
-                        pos="0.023579496890306473 -0.002088000299409032 -0.0016510002315044403"
-                        quat="0.0 0.7071067690849304 0.0 0.7071067690849304"
-                        mesh="UCX_TaskBoardBody_013" class="task_board_collision" />
-                    <geom name="task_board_body_collision_014" type="mesh"
-                        pos="0.06044299900531769 0.031991489231586456 -0.0016510002315044403"
-                        quat="0.5 0.5 -0.5 0.5" mesh="UCX_TaskBoardBody_014"
-                        class="task_board_collision" />
-                    <geom name="task_board_body_collision_015" type="mesh"
-                        pos="0.023579496890306473 0.06345998495817184 -0.0016510002315044403"
-                        quat="0.0 0.7071067690849304 0.0 0.7071067690849304"
-                        mesh="UCX_TaskBoardBody_015" class="task_board_collision" />
-                    <geom name="task_board_body_collision_016" type="mesh"
-                        pos="0.023579496890306473 0.03140699863433838 -0.0016510002315044403"
-                        quat="0.0 0.7071067690849304 0.0 0.7071067690849304"
-                        mesh="UCX_TaskBoardBody_016" class="task_board_collision" />
-                    <geom name="task_board_body_collision_017" type="mesh"
-                        pos="0.050563499331474304 0.04390700161457062 -0.0016510002315044403"
-                        quat="0.5 0.5 -0.5 0.5" mesh="UCX_TaskBoardBody_017"
-                        class="task_board_collision" />
-                    <geom name="task_board_body_collision_018" type="mesh"
-                        pos="0.050563499331474304 0.01890699751675129 -0.0016510002315044403"
-                        quat="0.5 0.5 -0.5 0.5" mesh="UCX_TaskBoardBody_018"
-                        class="task_board_collision" />
-                    <geom name="task_board_body_collision_019" type="mesh"
-                        pos="0.01145949773490429 0.01890699751675129 -0.0016510002315044403"
-                        quat="0.0 0.7071067690849304 0.0 0.7071067690849304"
-                        mesh="UCX_TaskBoardBody_019" class="task_board_collision" />
-                    <geom name="task_board_body_collision_020" type="mesh"
-                        pos="0.01145949773490429 0.04390700161457062 -0.0016510002315044403"
-                        quat="0.0 0.7071067690849304 0.0 0.7071067690849304"
-                        mesh="UCX_TaskBoardBody_020" class="task_board_collision" />
-                    <geom name="task_board_body_collision_021" type="mesh"
-                        pos="-0.047283995896577835 0.06283999979496002 -0.0016510002315044403"
-                        quat="0.0 0.7071067690849304 0.0 0.7071067690849304"
-                        mesh="UCX_TaskBoardBody_021" class="task_board_collision" />
-                    <geom name="task_board_body_collision_022" type="mesh"
-                        pos="0.008515998721122742 -0.03233299404382706 -0.010401993989944458"
-                        quat="1.0 0.0 0.0 0.0" mesh="UCX_TaskBoardBody_022"
-                        class="task_board_collision" />
-                    <geom name="task_board_body_collision_023" type="mesh"
-                        pos="0.000116005539894104 -0.03203300014138222 -0.0019019992323592305"
-                        quat="1.0 0.0 0.0 0.0" mesh="UCX_TaskBoardBody_023"
-                        class="task_board_collision" />
-                    <geom name="task_board_body_collision_024" type="mesh"
-                        pos="-0.010883995331823826 -0.03203300014138222 -0.0019019993487745523"
-                        quat="0.0 1.0 0.0 0.0" mesh="UCX_TaskBoardBody_024"
-                        class="task_board_collision" />
-                </body>
-            </body>
+        <geom name="task_board_body_collision_001" pos="-0.000692189 0.000563495 -0.0781784"
+            quat="-3.09086e-08 0.707107 3.09086e-08 0.707107" type="mesh"
+            mesh="UCX_TaskBoardMain_001" />
+        <geom name="task_board_body_collision_002" pos="-0.000740361 -0.0727772 -0.0401744"
+            quat="0.506585 0.493345 0.506567 0.493328" type="mesh" mesh="UCX_TaskBoardMain_002" />
+        <geom name="task_board_body_collision_003" pos="-0.000705108 0.0739008 -0.0401748"
+            quat="0.493332 0.506577 0.49334 0.506576" type="mesh" mesh="UCX_TaskBoardMain_003" />
+        <geom name="task_board_body_collision_004" pos="-0.127237 0.000563459 -0.0402381"
+            quat="0.707031 0.707031 0.0103232 -0.0103232" type="mesh" mesh="UCX_TaskBoardMain_004" />
+        <geom name="task_board_body_collision_005" pos="0.125836 0.000556866 -0.0402381"
+            quat="0.707031 0.707031 -0.0103232 0.0103232" type="mesh" mesh="UCX_TaskBoardMain_005" />
+        <geom name="task_board_body_collision_006" pos="0.0950813 0.000562718 -0.001651"
+            quat="0.499997 0.500003 -0.499997 0.500003" type="mesh" mesh="UCX_TaskBoardMain_006" />
+        <geom name="task_board_body_collision_007" pos="-0.107209 0.000563001 -0.001651"
+            quat="0.500001 0.499999 -0.500001 0.499999" type="mesh" mesh="UCX_TaskBoardMain_007" />
+        <geom name="task_board_body_collision_008" pos="-0.086284 0.0253345 -0.001651"
+            quat="0.707107 0.707107 0 0" type="mesh" mesh="UCX_TaskBoardMain_008" />
+        <geom name="task_board_body_collision_009" pos="-0.048284 -0.0568595 -0.001651"
+            quat="-3.09086e-08 0.707107 3.09086e-08 0.707107" type="mesh"
+            mesh="UCX_TaskBoardMain_009" />
+        <geom name="task_board_body_collision_010" pos="0.0235795 -0.0617345 -0.001651"
+            quat="-3.09086e-08 0.707107 3.09086e-08 0.707107" type="mesh"
+            mesh="UCX_TaskBoardMain_010" />
+        <geom name="task_board_body_collision_011" pos="0.060443 -0.066208 -0.001651"
+            quat="0.5 0.5 -0.5 0.5" type="mesh" mesh="UCX_TaskBoardMain_011" />
+        <geom name="task_board_body_collision_012" pos="0.0345795 -0.032333 -0.001651"
+            quat="-3.09086e-08 0.707107 3.09086e-08 0.707107" type="mesh"
+            mesh="UCX_TaskBoardMain_012" />
+        <geom name="task_board_body_collision_013" pos="0.0235795 -0.002088 -0.001651"
+            quat="-3.09086e-08 0.707107 3.09086e-08 0.707107" type="mesh"
+            mesh="UCX_TaskBoardMain_013" />
+        <geom name="task_board_body_collision_014" pos="0.060443 0.0319915 -0.001651"
+            quat="0.5 0.5 -0.5 0.5" type="mesh" mesh="UCX_TaskBoardMain_014" />
+        <geom name="task_board_body_collision_015" pos="0.0235795 0.06346 -0.001651"
+            quat="-3.09086e-08 0.707107 3.09086e-08 0.707107" type="mesh"
+            mesh="UCX_TaskBoardMain_015" />
+        <geom name="task_board_body_collision_016" pos="0.0235795 0.031407 -0.001651"
+            quat="-3.09086e-08 0.707107 3.09086e-08 0.707107" type="mesh"
+            mesh="UCX_TaskBoardMain_016" />
+        <geom name="task_board_body_collision_017" pos="0.0505635 0.043907 -0.001651"
+            quat="0.5 0.5 -0.5 0.5" type="mesh" mesh="UCX_TaskBoardMain_017" />
+        <geom name="task_board_body_collision_018" pos="0.0505635 0.018907 -0.001651"
+            quat="0.5 0.5 -0.5 0.5" type="mesh" mesh="UCX_TaskBoardMain_018" />
+        <geom name="task_board_body_collision_019" pos="0.0114595 0.018907 -0.001651"
+            quat="-3.09086e-08 0.707107 3.09086e-08 0.707107" type="mesh"
+            mesh="UCX_TaskBoardMain_019" />
+        <geom name="task_board_body_collision_020" pos="0.0114595 0.043907 -0.001651"
+            quat="-3.09086e-08 0.707107 3.09086e-08 0.707107" type="mesh"
+            mesh="UCX_TaskBoardMain_020" />
+        <geom name="task_board_body_collision_021" pos="-0.047284 0.06284 -0.001651"
+            quat="-3.09086e-08 0.707107 3.09086e-08 0.707107" type="mesh"
+            mesh="UCX_TaskBoardMain_021" />
+        <geom name="task_board_body_collision_022" pos="0.008516 -0.032333 -0.010402" type="mesh"
+            mesh="UCX_TaskBoardMain_022" />
+        <geom name="task_board_body_collision_023" pos="0.000116006 -0.032033 -0.001902" type="mesh"
+            mesh="UCX_TaskBoardMain_023" />
+        <geom name="task_board_body_collision_024" pos="-0.010884 -0.032033 -0.001902"
+            quat="0.5 0.5 0.5 0.5" type="mesh" mesh="UCX_TaskBoardMain_024" />
+        <geom name="task_board_banana_plug_hole_black_collision_001"
+            pos="0.0442397 0.0439062 -0.00924951" quat="0.707107 -0.000234279 -0.000234279 0.707107"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_002"
+            pos="0.0441285 0.0450371 -0.00924951" quat="0.634393 -0.000210188 -0.000256115 0.77301"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_003"
+            pos="0.0437988 0.0461246 -0.00924951" quat="0.55557 -0.000184072 -0.000275483 0.831469"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_004"
+            pos="0.0432633 0.0471268 -0.00924951" quat="0.471396 -0.000156184 -0.000292199 0.881921"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_005"
+            pos="0.0425425 0.0480054 -0.00924951" quat="0.382684 -0.000126791 -0.000306101 0.923879"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_006"
+            pos="0.0416642 0.0487264 -0.00924951" quat="0.290284 -9.61773e-05 -0.000317055 0.95694"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_007"
+            pos="0.0406621 0.0492622 -0.00924951" quat="0.195091 -6.46377e-05 -0.000324955 0.980785"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_008"
+            pos="0.0395747 0.0495922 -0.00924951" quat="0.098017 -3.24751e-05 -0.000329726 0.995185"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_009"
+            pos="0.0384438 0.0497037 -0.00924951" quat="-4.37114e-08 1.44825e-11 -0.000331321 1"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_010"
+            pos="0.0373129 0.0495925 -0.00924951" quat="0.098017 -3.24751e-05 0.000329726 -0.995185"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_011"
+            pos="0.0362254 0.0492628 -0.00924951" quat="0.195091 -6.46377e-05 0.000324955 -0.980785"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_012"
+            pos="0.0352232 0.0487273 -0.00924951" quat="0.290284 -9.61773e-05 0.000317055 -0.95694"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_013"
+            pos="0.0343446 0.0480065 -0.00924951" quat="0.382684 -0.000126791 0.000306101 -0.923879"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_014"
+            pos="0.0336236 0.0471282 -0.00924951" quat="0.471396 -0.000156184 0.000292199 -0.881921"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_015"
+            pos="0.0330878 0.046126 -0.00924951" quat="0.55557 -0.000184072 0.000275483 -0.831469"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_016"
+            pos="0.0327578 0.0450387 -0.00924951" quat="0.634393 -0.000210188 0.000256115 -0.77301"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_017"
+            pos="0.0326463 0.0439078 -0.00924951" quat="0.707107 -0.000234279 0.000234279 -0.707107"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_018"
+            pos="0.0327575 0.0427769 -0.00924951" quat="0.77301 -0.000256115 0.000210188 -0.634393"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_019"
+            pos="0.0330872 0.0416894 -0.00924951" quat="0.831469 -0.000275483 0.000184072 -0.55557"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_020"
+            pos="0.0336227 0.0406872 -0.00924951" quat="0.881921 -0.000292199 0.000156184 -0.471396"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_021"
+            pos="0.0343435 0.0398087 -0.00924951" quat="0.923879 -0.000306101 0.000126791 -0.382684"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_022"
+            pos="0.0352218 0.0390876 -0.00924951" quat="0.95694 -0.000317055 9.61773e-05 -0.290284"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_023"
+            pos="0.0362239 0.0385518 -0.00924951" quat="0.980785 -0.000324955 6.46377e-05 -0.195091"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_024"
+            pos="0.0373113 0.0382218 -0.00924951"
+            quat="0.995185 -0.000329726 3.24751e-05 -0.0980171" type="mesh"
+            mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_025"
+            pos="0.0384422 0.0381103 -0.00924951" quat="1 -0.000331321 0 0" type="mesh"
+            mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_026"
+            pos="0.0395731 0.0382215 -0.00924951"
+            quat="0.995185 -0.000329726 -3.24751e-05 0.0980171" type="mesh"
+            mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_027"
+            pos="0.0406606 0.0385512 -0.00924951" quat="0.980785 -0.000324955 -6.46377e-05 0.195091"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_028"
+            pos="0.0416628 0.0390867 -0.00924951" quat="0.95694 -0.000317055 -9.61773e-05 0.290284"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_029"
+            pos="0.0425414 0.0398075 -0.00924951" quat="0.923879 -0.000306101 -0.000126791 0.382684"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_030"
+            pos="0.0432624 0.0406858 -0.00924951" quat="0.881921 -0.000292199 -0.000156184 0.471396"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_031"
+            pos="0.0437982 0.041688 -0.00924951" quat="0.831469 -0.000275483 -0.000184072 0.55557"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_black_collision_032"
+            pos="0.0441282 0.0427753 -0.00924951" quat="0.77301 -0.000256115 -0.000210188 0.634393"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_001"
+            pos="0.0442397 0.0189062 -0.00924951" quat="0.707107 -0.000234279 -0.000234279 0.707107"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_002"
+            pos="0.0441285 0.0200371 -0.00924951" quat="0.634393 -0.000210188 -0.000256115 0.77301"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_003"
+            pos="0.0437988 0.0211246 -0.00924951" quat="0.55557 -0.000184072 -0.000275483 0.831469"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_004"
+            pos="0.0432633 0.0221268 -0.00924951" quat="0.471396 -0.000156184 -0.000292199 0.881921"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_005"
+            pos="0.0425425 0.0230053 -0.00924951" quat="0.382684 -0.000126791 -0.000306101 0.923879"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_006"
+            pos="0.0416642 0.0237264 -0.00924951" quat="0.290284 -9.61773e-05 -0.000317055 0.95694"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_007"
+            pos="0.0406621 0.0242622 -0.00924951" quat="0.195091 -6.46377e-05 -0.000324955 0.980785"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_008"
+            pos="0.0395747 0.0245922 -0.00924951" quat="0.098017 -3.24751e-05 -0.000329726 0.995185"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_009"
+            pos="0.0384438 0.0247037 -0.00924951" quat="-4.37114e-08 1.44825e-11 -0.000331321 1"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_010"
+            pos="0.0373129 0.0245925 -0.00924951" quat="0.098017 -3.24751e-05 0.000329726 -0.995185"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_011"
+            pos="0.0362254 0.0242628 -0.00924951" quat="0.195091 -6.46377e-05 0.000324955 -0.980785"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_012"
+            pos="0.0352232 0.0237273 -0.00924951" quat="0.290284 -9.61773e-05 0.000317055 -0.95694"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_013"
+            pos="0.0343446 0.0230065 -0.00924951" quat="0.382684 -0.000126791 0.000306101 -0.923879"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_014"
+            pos="0.0336236 0.0221282 -0.00924951" quat="0.471396 -0.000156184 0.000292199 -0.881921"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_015"
+            pos="0.0330878 0.021126 -0.00924951" quat="0.55557 -0.000184072 0.000275483 -0.831469"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_016"
+            pos="0.0327578 0.0200387 -0.00924951" quat="0.634393 -0.000210188 0.000256115 -0.77301"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_017"
+            pos="0.0326463 0.0189078 -0.00924951" quat="0.707107 -0.000234279 0.000234279 -0.707107"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_018"
+            pos="0.0327575 0.0177769 -0.00924951" quat="0.77301 -0.000256115 0.000210188 -0.634393"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_019"
+            pos="0.0330872 0.0166894 -0.00924951" quat="0.831469 -0.000275483 0.000184072 -0.55557"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_020"
+            pos="0.0336227 0.0156872 -0.00924951" quat="0.881921 -0.000292199 0.000156184 -0.471396"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_021"
+            pos="0.0343435 0.0148087 -0.00924951" quat="0.923879 -0.000306101 0.000126791 -0.382684"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_022"
+            pos="0.0352218 0.0140876 -0.00924951" quat="0.95694 -0.000317055 9.61773e-05 -0.290284"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_023"
+            pos="0.0362239 0.0135518 -0.00924951" quat="0.980785 -0.000324955 6.46377e-05 -0.195091"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_024"
+            pos="0.0373113 0.0132218 -0.00924951"
+            quat="0.995185 -0.000329726 3.24751e-05 -0.0980171" type="mesh"
+            mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_025"
+            pos="0.0384422 0.0131103 -0.00924951" quat="1 -0.000331321 0 0" type="mesh"
+            mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_026"
+            pos="0.0395731 0.0132215 -0.00924951"
+            quat="0.995185 -0.000329726 -3.24751e-05 0.0980171" type="mesh"
+            mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_027"
+            pos="0.0406606 0.0135512 -0.00924951" quat="0.980785 -0.000324955 -6.46377e-05 0.195091"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_028"
+            pos="0.0416628 0.0140867 -0.00924951" quat="0.95694 -0.000317055 -9.61773e-05 0.290284"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_029"
+            pos="0.0425414 0.0148075 -0.00924951" quat="0.923879 -0.000306101 -0.000126791 0.382684"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_030"
+            pos="0.0432624 0.0156858 -0.00924951" quat="0.881921 -0.000292199 -0.000156184 0.471396"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_031"
+            pos="0.0437982 0.016688 -0.00924951" quat="0.831469 -0.000275483 -0.000184072 0.55557"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_plug_hole_red_collision_032"
+            pos="0.0441282 0.0177753 -0.00924951" quat="0.77301 -0.000256115 -0.000210188 0.634393"
+            type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_cable_wrap_post_left_collision_001"
+            pos="0.0804995 0.0948732 -0.000407386" quat="-0.326506 -0.627211 0.627211 -0.326505"
+            type="mesh" rgba="0.1 0.1 0.1 1" mesh="UCX_TaskBoardCableWrapPostLeft_001" />
+        <geom name="task_board_cable_wrap_post_left_collision_002"
+            pos="0.0676017 0.089882 0.00672041" quat="0.212679 -0.674547 0.21258 -0.674213"
+            type="mesh" rgba="0.1 0.1 0.1 1" mesh="UCX_TaskBoardCableWrapPostLeft_002" />
+        <geom name="task_board_cable_wrap_post_left_collision_003"
+            pos="0.0854783 0.0895382 -0.00109104" quat="0.328779 0.63159 0.324207 0.622807"
+            type="mesh" rgba="0.1 0.1 0.1 1" mesh="UCX_TaskBoardCableWrapPostLeft_003" />
+        <geom name="task_board_cable_wrap_post_left_collision_004"
+            pos="0.0854783 0.0973399 0.00437172" quat="0.324207 0.622807 0.328779 0.63159"
+            type="mesh" rgba="0.1 0.1 0.1 1" mesh="UCX_TaskBoardCableWrapPostLeft_004" />
+        <geom name="task_board_cable_wrap_post_left_collision_005"
+            pos="0.0834136 0.0907494 0.00548159" quat="-0.326505 -0.627212 0.627212 -0.326505"
+            type="mesh" rgba="0.1 0.1 0.1 1" mesh="UCX_TaskBoardCableWrapPostLeft_005" />
+        <geom name="task_board_cable_wrap_post_left_collision_006"
+            pos="0.0834943 0.0874751 0.0101577" quat="0.461748 0.887011 0.000530518 -0.00027617"
+            type="mesh" rgba="0.1 0.1 0.1 1" mesh="UCX_TaskBoardCableWrapPostLeft_006" />
+        <geom name="task_board_cable_wrap_post_left_collision_007"
+            pos="0.0718584 0.0694586 0.00312485" quat="-0.0143574 0.705767 0.0567244 0.706023"
+            type="mesh" rgba="0.1 0.1 0.1 1" mesh="UCX_TaskBoardCableWrapPostLeft_007" />
+        <geom name="task_board_cable_wrap_post_left_collision_008"
+            pos="0.091522 0.0941327 0.0145445" quat="0.570068 0.370903 0.582932 0.444572"
+            type="mesh" rgba="0.1 0.1 0.1 1" mesh="UCX_TaskBoardCableWrapPostLeft_008" />
+        <geom name="task_board_cable_wrap_post_left_collision_009"
+            pos="0.0915393 0.0810721 0.00539525" quat="-0.0257791 -0.73394 0.0290105 -0.678104"
+            type="mesh" rgba="0.1 0.1 0.1 1" mesh="UCX_TaskBoardCableWrapPostLeft_009" />
+        <geom name="task_board_cable_wrap_post_left_collision_010"
+            pos="0.0832904 0.0856705 -0.00319485" quat="0.934378 0.295076 0.0639729 -0.189146"
+            type="mesh" rgba="0.1 0.1 0.1 1" mesh="UCX_TaskBoardCableWrapPostLeft_010" />
+        <geom name="task_board_cable_wrap_post_left_collision_011"
+            pos="0.0832905 0.10064 0.00728588" quat="0.934377 0.295077 -0.0639928 0.189139"
+            type="mesh" rgba="0.1 0.1 0.1 1" mesh="UCX_TaskBoardCableWrapPostLeft_011" />
+        <geom name="task_board_banana_pug_port_collision_001" pos="-0.101844 -0.0432329 0.0263749"
+            quat="0.499864 0.500136 -0.499847 0.500153" type="mesh" rgba="0.1 0.1 0.1 1"
+            mesh="UCX_TaskBoardBananaPlugPort_001" />
+        <geom name="task_board_banana_pug_port_collision_002" pos="-0.101843 -0.0432271 0.00712499"
+            quat="0.500958 0.499057 -0.500923 0.499059" type="mesh" rgba="0.1 0.1 0.1 1"
+            mesh="UCX_TaskBoardBananaPlugPort_002" />
+        <geom name="task_board_banana_pug_port_collision_003" pos="-0.101843 -0.0632351 0.0145"
+            quat="0.70571 9.6852e-07 -2.44858e-05 0.708501" type="mesh" rgba="0.1 0.1 0.1 1"
+            mesh="UCX_TaskBoardBananaPlugPort_003" />
+        <geom name="task_board_banana_pug_port_collision_004" pos="-0.101842 -0.0277788 0.00299996"
+            quat="0.00016569 -0.707107 -0.000165691 -0.707107" type="mesh" rgba="0.1 0.1 0.1 1"
+            mesh="UCX_TaskBoardBananaPlugPort_004" />
+        <geom name="task_board_banana_pug_port_collision_005" pos="-0.109219 -0.0432345 0.0190001"
+            quat="0.707107 0.707107 2.2365e-05 2.2365e-05" type="mesh" rgba="0.1 0.1 0.1 1"
+            mesh="UCX_TaskBoardBananaPlugPort_005" />
+        <geom name="task_board_banana_pug_port_collision_006" pos="-0.0944688 -0.0432301 0.0189992"
+            quat="0.707215 0.706998 -1.92416e-05 -1.92357e-05" type="mesh" rgba="0.1 0.1 0.1 1"
+            mesh="UCX_TaskBoardBananaPlugPort_006" />
+        <geom name="task_board_banana_pug_hole_collision_001" pos="-0.0960473 -0.0420305 0.0190008"
+            quat="0.499834 -0.500166 0.499834 0.500166" type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_002" pos="-0.0961585 -0.0420305 0.0178699"
+            quat="0.448435 -0.448732 0.54642 0.546782" type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_003" pos="-0.0964882 -0.0420305 0.0167824"
+            quat="0.392717 -0.392978 0.587743 0.588132" type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_004" pos="-0.0970237 -0.0420305 0.0157802"
+            quat="0.333217 -0.333438 0.623406 0.623819" type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_005" pos="-0.0977445 -0.0420305 0.0149017"
+            quat="0.270509 -0.270688 0.653065 0.653498" type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_006" pos="-0.0986228 -0.0420305 0.0141806"
+            quat="0.205194 -0.20533 0.676435 0.676883" type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_007" pos="-0.0996249 -0.0420305 0.0136448"
+            quat="0.137904 -0.137996 0.69329 0.69375" type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_008" pos="-0.100712 -0.0420305 0.0133148"
+            quat="0.0692855 -0.0693315 0.703469 0.703935" type="mesh"
+            mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_009" pos="-0.101843 -0.0420305 0.0132033"
+            quat="-3.08984e-08 3.09189e-08 0.706872 0.707341" type="mesh"
+            mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_010" pos="-0.102974 -0.0420305 0.0133145"
+            quat="0.0692855 -0.0693315 -0.703469 -0.703935" type="mesh"
+            mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_011" pos="-0.104062 -0.0420305 0.0136442"
+            quat="0.137904 -0.137996 -0.69329 -0.69375" type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_012" pos="-0.105064 -0.0420305 0.0141797"
+            quat="0.205194 -0.20533 -0.676435 -0.676883" type="mesh"
+            mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_013" pos="-0.105942 -0.0420305 0.0149005"
+            quat="0.270509 -0.270688 -0.653065 -0.653498" type="mesh"
+            mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_014" pos="-0.106663 -0.0420305 0.0157788"
+            quat="0.333217 -0.333438 -0.623406 -0.623819" type="mesh"
+            mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_015" pos="-0.107199 -0.0420305 0.016781"
+            quat="0.392717 -0.392978 -0.587743 -0.588132" type="mesh"
+            mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_016" pos="-0.107529 -0.0420305 0.0178683"
+            quat="0.448435 -0.448732 -0.54642 -0.546782" type="mesh"
+            mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_017" pos="-0.107641 -0.0420305 0.0189992"
+            quat="0.499834 -0.500166 -0.499834 -0.500166" type="mesh"
+            mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_018" pos="-0.10753 -0.0420305 0.0201301"
+            quat="0.54642 -0.546782 -0.448435 -0.448732" type="mesh"
+            mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_019" pos="-0.1072 -0.0420305 0.0212176"
+            quat="0.587743 -0.588132 -0.392717 -0.392978" type="mesh"
+            mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_020" pos="-0.106664 -0.0420305 0.0222198"
+            quat="0.623406 -0.623819 -0.333217 -0.333438" type="mesh"
+            mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_021" pos="-0.105943 -0.0420305 0.0230983"
+            quat="0.653065 -0.653498 -0.270509 -0.270688" type="mesh"
+            mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_022" pos="-0.105065 -0.0420305 0.0238194"
+            quat="0.676435 -0.676883 -0.205194 -0.20533" type="mesh"
+            mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_023" pos="-0.104063 -0.0420305 0.0243552"
+            quat="0.69329 -0.69375 -0.137904 -0.137996" type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_024" pos="-0.102976 -0.0420305 0.0246852"
+            quat="0.703469 -0.703935 -0.0692856 -0.0693315" type="mesh"
+            mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_025" pos="-0.101845 -0.0420305 0.0247967"
+            quat="0.706872 -0.707341 0 0" type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_026" pos="-0.100714 -0.0420305 0.0246855"
+            quat="0.703469 -0.703935 0.0692856 0.0693315" type="mesh"
+            mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_027" pos="-0.0996264 -0.0420305 0.0243558"
+            quat="0.69329 -0.69375 0.137904 0.137996" type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_028" pos="-0.0986242 -0.0420305 0.0238203"
+            quat="0.676435 -0.676883 0.205194 0.20533" type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_029" pos="-0.0977456 -0.0420305 0.0230995"
+            quat="0.653065 -0.653498 0.270509 0.270688" type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_030" pos="-0.0970246 -0.0420305 0.0222212"
+            quat="0.623406 -0.623819 0.333217 0.333438" type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_031" pos="-0.0964888 -0.0420305 0.021219"
+            quat="0.587743 -0.588132 0.392717 0.392978" type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_banana_pug_hole_collision_032" pos="-0.0961588 -0.0420305 0.0201317"
+            quat="0.54642 -0.546782 0.448435 0.448732" type="mesh" mesh="UCX_TaskBoardHoleSide_001" />
+        <geom name="task_board_m5_stick_c_collision_001" pos="0.096243 -0.02308 0.00685"
+            quat="0.5 0.5 -0.5 0.5" type="mesh" rgba="0.973 0.529 0.04 1"
+            mesh="UCX_TaskBoardM5StickC_001" />
+        <geom name="task_board_cable_wrap_post_right_collision_001"
+            pos="-0.0658785 0.0948732 -0.000407386" quat="-0.326506 -0.627211 0.627211 -0.326505"
+            type="mesh" rgba="0.1 0.1 0.1 1" mesh="UCX_TaskBoardCableWrapPostRight_001" />
+        <geom name="task_board_cable_wrap_post_right_collision_002"
+            pos="-0.0529807 0.089882 0.00672041" quat="0.21258 -0.674213 0.212679 -0.674547"
+            type="mesh" rgba="0.1 0.1 0.1 1" mesh="UCX_TaskBoardCableWrapPostRight_002" />
+        <geom name="task_board_cable_wrap_post_right_collision_003"
+            pos="-0.0708573 0.0895382 -0.00109104" quat="0.324207 0.622807 0.328779 0.63159"
+            type="mesh" rgba="0.1 0.1 0.1 1" mesh="UCX_TaskBoardCableWrapPostRight_003" />
+        <geom name="task_board_cable_wrap_post_right_collision_004"
+            pos="-0.0708573 0.0973399 0.00437172" quat="0.328779 0.63159 0.324207 0.622807"
+            type="mesh" rgba="0.1 0.1 0.1 1" mesh="UCX_TaskBoardCableWrapPostRight_004" />
+        <geom name="task_board_cable_wrap_post_right_collision_005"
+            pos="-0.0687926 0.0907494 0.00548159" quat="-0.326505 -0.627212 0.627212 -0.326505"
+            type="mesh" rgba="0.1 0.1 0.1 1" mesh="UCX_TaskBoardCableWrapPostRight_005" />
+        <geom name="task_board_cable_wrap_post_right_collision_006"
+            pos="-0.0688733 0.0874751 0.0101577" quat="0.461748 0.887011 -0.000530529 0.000276175"
+            type="mesh" rgba="0.1 0.1 0.1 1" mesh="UCX_TaskBoardCableWrapPostRight_006" />
+        <geom name="task_board_cable_wrap_post_right_collision_007"
+            pos="-0.0572374 0.0694586 0.00312485" quat="0.0567244 0.706023 -0.0143575 0.705767"
+            type="mesh" rgba="0.1 0.1 0.1 1" mesh="UCX_TaskBoardCableWrapPostRight_007" />
+        <geom name="task_board_cable_wrap_post_right_collision_008"
+            pos="-0.076901 0.0941327 0.0145445" quat="0.582932 0.444572 0.570068 0.370903"
+            type="mesh" rgba="0.1 0.1 0.1 1" mesh="UCX_TaskBoardCableWrapPostRight_008" />
+        <geom name="task_board_cable_wrap_post_right_collision_009"
+            pos="-0.0769182 0.0810721 0.00539525" quat="0.0290106 -0.678104 -0.0257791 -0.73394"
+            type="mesh" rgba="0.1 0.1 0.1 1" mesh="UCX_TaskBoardCableWrapPostRight_009" />
+        <geom name="task_board_cable_wrap_post_right_collision_010"
+            pos="-0.0686694 0.0856705 -0.00319485" quat="0.934378 0.295076 -0.0639729 0.189146"
+            type="mesh" rgba="0.1 0.1 0.1 1" mesh="UCX_TaskBoardCableWrapPostRight_010" />
+        <geom name="task_board_cable_wrap_post_right_collision_011"
+            pos="-0.0686695 0.10064 0.00728588" quat="0.934377 0.295077 0.0639928 -0.189139"
+            type="mesh" rgba="0.1 0.1 0.1 1" mesh="UCX_TaskBoardCableWrapPostRight_011" />
+        <geom name="Geom_172" size="0.00099" pos="-0.101844 -0.063582 0.019" />
+        <geom name="task_board_probe_collision_001" pos="-0.101844 -0.0352794 0.019"
+            quat="0.707107 0.707107 0 0" type="mesh" mesh="UCX_TaskBoardProbe_001" />
+        <geom name="task_board_probe_collision_002" pos="-0.101844 -0.0211331 0.019"
+            quat="0.707107 0.707107 0 0" type="mesh" mesh="UCX_TaskBoardProbe_002" />
+        <geom name="task_board_probe_collision_003" pos="-0.101844 -0.0128813 0.019"
+            quat="0.707107 0 0 0.707107" type="mesh" mesh="UCX_TaskBoardProbe_003" />
+        <geom name="task_board_probe_collision_004" pos="-0.101844 0.0244085 0.019"
+            quat="0.707107 0.707107 0 0" type="mesh" mesh="UCX_TaskBoardProbe_004" />
+        <geom name="task_board_cable_plug_collision_003" size="0.004 0.009"
+            pos="0.038443 0.018907 0.01" quat="0.707107 0 0 -0.707107" type="cylinder" />
+        <geom name="task_board_cable_plug_collision_001" pos="0.038443 0.0267941 0.023"
+            quat="0.5 0.5 -0.5 0.5" type="mesh" rgba="1 0 0 1" mesh="UCX_TaskBoardCablePlug_001" />
+        <geom name="task_board_cable_plug_collision_002" pos="0.038443 0.0515941 0.023"
+            quat="0.707107 0.707107 0 0" type="mesh" rgba="1 0 0 1"
+            mesh="UCX_TaskBoardCablePlug_002" />
+        <body name="task_board_slider" pos="0.060443 -0.03453 0.003365">
+            <inertial pos="-1.86265e-09 3.72529e-09 -9.87656e-05" mass="0.00081"
+                diaginertia="7.36377e-09 5.63126e-09 5.1075e-09" />
+            <joint name="task_board_slider_joint" pos="0 0 0" axis="0 1 0" type="slide"
+                range="-0.018 0.018" actuatorfrcrange="-1000 1000" />
+            <geom name="task_board_slider_collision_001" pos="-1.86265e-09 3.72529e-09 -9.87656e-05"
+                type="mesh" mesh="UCX_TaskBoardSlider_001" />
         </body>
-
-        <!-- Probe (floating object) -->
-        <body name="task_board_probe" pos="-0.101844 -0.007 0.019" quat="1.0 0.0 0.0 0.0">
-            <inertial mass="0.006231526378542185"
-                pos="-2.27348695425178e-11 0.0001277880510315299 -3.0341962276025924e-09"
-                quat="-0.4846147894859314 -0.5149257183074951 0.5149257183074951 0.4846147894859314"
-                diaginertia="6.648315320489928e-08 5.043107648816658e-06 5.043107648816658e-06" />
-            <freejoint />
-            <geom name="task_board_probe_visual" type="mesh"
-                pos="-1.1167492885988395e-07 0.016684556379914284 2.0637875408624495e-08"
-                quat="0.7071067690849304 0.7071067690849304 0.0 0.0" mesh="TaskBoardProbe"
-                rgba="0.5 0.5 0.5 1.0" class="task_board_visual" />
-            <geom name="task_board_probe_collision_001" type="mesh"
-                pos="-1.2777578474454376e-12 -0.028279362246394157 -1.9006438645163826e-09"
-                quat="0.7071067690849304 0.7071067690849304 0.0 0.0" mesh="UCX_TaskBoardProbe_001"
-                class="task_board_collision" />
-            <geom name="task_board_probe_collision_002" type="mesh"
-                pos="-2.993737419423881e-12 -0.014133143238723278 -3.2889999612706333e-09"
-                quat="0.7071067690849304 0.7071067690849304 0.0 0.0" mesh="UCX_TaskBoardProbe_002"
-                class="task_board_collision" />
-            <geom name="task_board_probe_collision_003" type="mesh"
-                pos="1.3151225984955883e-12 -0.00588131882250309 -2.1292419216667469e-10"
-                quat="0.7071067690849304 0.0 0.0 0.7071067690849304" mesh="UCX_TaskBoardProbe_003"
-                class="task_board_collision" />
-            <geom name="task_board_probe_collision_004" type="mesh"
-                pos="6.804208238508913e-12 0.031408458948135376 -3.2541387362527985e-09"
-                quat="0.7071067690849304 0.7071067690849304 0.0 0.0" mesh="UCX_TaskBoardProbe_004"
-                class="task_board_collision" />
+        <body name="task_board_button_blue" pos="0.096243 0.043907 0.002023">
+            <inertial pos="0 0 0" mass="0.00065325" diaginertia="1.0612e-08 5.86346e-09 5.86346e-09" />
+            <joint name="task_board_button_blue_joint" pos="0 0 0" axis="0 0 1" type="slide"
+                range="-0.003 0" actuatorfrcrange="-1000 1000" />
+            <geom name="task_board_button_blue_collision_001" size="0.0057 0.0016" type="cylinder"
+                rgba="0 0 1 1" />
         </body>
-
-        <!-- Cable plug (floating object) -->
-        <body name="task_board_cable_plug" pos="0.03844299912452698 0.01890699937939644 0.019"
-            quat="-0.7071068 0 0 0.7071068">
-            <inertial mass="0.009143883362412453"
-                pos="-0.00967562384903431 -4.372870676672136e-10 -4.746794729726389e-05"
-                quat="0.42671170830726624 0.5638414025306702 0.5638414025306702 0.42671170830726624"
-                diaginertia="1.8079294932249468e-06 1.5876109955570428e-06 3.367600811543525e-07" />
-            <freejoint />
-            <geom name="task_board_cable_plug_visual" type="mesh"
-                pos="-0.008676216006278992 -3.99139027384976e-10 -0.0008309241384267807"
-                quat="0.4194165766239166 0.5692887902259827 0.5692887902259827 0.4194165766239166"
-                mesh="TaskBoardCablePlug" rgba="1.0 0.0 0.0 1.0" class="task_board_visual" />
-            <geom name="task_board_cable_plug_collision_001" type="mesh"
-                pos="-0.0078870989382267 -2.2360559237544209e-10 0.00400000112131238"
-                quat="0.0 0.7071067690849304 0.0 0.7071067690849304"
-                mesh="UCX_TaskBoardCablePlug_001" class="task_board_cable_plug_collision" />
-            <geom name="task_board_cable_plug_collision_002" type="mesh"
-                pos="-0.032687146216630936 -1.8100263510234527e-09 0.004000004380941391"
-                quat="0.5 0.5 0.5 0.5" mesh="UCX_TaskBoardCablePlug_002"
-                class="task_board_cable_plug_collision" />
-            <geom name="task_board_cable_plug_collision_003" type="cylinder"
-                pos="0.0 0.0 -0.008999999612569809" quat="1.0 0.0 0.0 0.0"
-                size="0.004000000189989805 0.008999999612569809"
-                class="task_board_cable_plug_collision" />
+        <body name="task_board_lid" pos="-0.047284 -0.032333 -0.000802">
+            <inertial pos="2.42611e-06 0.0383443 0.00753967"
+                quat="0.998728 -0.050425 -8.45435e-07 3.67965e-06" mass="0.111444"
+                diaginertia="0.000129356 6.75475e-05 6.33849e-05" />
+            <joint name="task_board_lid_joint" pos="0 0 0" axis="1 0 0" range="-0.05 2.07293"
+                actuatorfrcrange="-1000 1000" />
+            <geom name="task_board_lid_collision_001" pos="-4.42142e-07 0.0455033 0.00887479"
+                quat="0.0106518 -0.707027 0.0106518 -0.707027" type="mesh" rgba="0.973 0.529 0.04 1"
+                mesh="UCX_TaskBoardLid_001" />
+            <geom name="task_board_lid_knob_collision_001" size="0.004 0.007934"
+                pos="0 0.065398 0.009648" type="cylinder" />
+            <geom name="task_board_lid_knob_collision_002" size="0.007486 0.00135"
+                pos="0 0.065398 0.016962" type="cylinder" />
+        </body>
+        <body name="task_board_button_red" pos="0.096243 0.030907 0.002023">
+            <inertial pos="0 0 0" mass="0.00065325" diaginertia="1.0612e-08 5.86346e-09 5.86346e-09" />
+            <joint name="task_board_button_red_joint" pos="0 0 0" axis="0 0 1" type="slide"
+                range="-0.003 0" actuatorfrcrange="-1000 1000" />
+            <geom name="task_board_button_red_collision_001" size="0.0057 0.0016" type="cylinder"
+                rgba="1 0 0 1" />
         </body>
     </worldbody>
-
-    <!-- Sensors for monitoring -->
-    <sensor>
-        <!-- Body position sensors -->
-        <framepos name="task_board_body_pos" objtype="body" objname="task_board_body" />
-        <framequat name="task_board_body_quat" objtype="body" objname="task_board_body" />
-        <framelinvel name="task_board_body_linvel" objtype="body" objname="task_board_body" />
-        <frameangvel name="task_board_body_angvel" objtype="body" objname="task_board_body" />
-
-        <!-- Probe sensors (floating object) -->
-        <framepos name="task_board_probe_pos" objtype="body" objname="task_board_probe" />
-        <framequat name="task_board_probe_quat" objtype="body" objname="task_board_probe" />
-        <framelinvel name="task_board_probe_linvel" objtype="body" objname="task_board_probe" />
-        <frameangvel name="task_board_probe_angvel" objtype="body" objname="task_board_probe" />
-
-        <!-- Cable plug sensors (floating object) -->
-        <framepos name="task_board_cable_plug_pos" objtype="body" objname="task_board_cable_plug" />
-        <framequat name="task_board_cable_plug_quat" objtype="body" objname="task_board_cable_plug" />
-        <framelinvel name="task_board_cable_plug_linvel" objtype="body"
-            objname="task_board_cable_plug" />
-        <frameangvel name="task_board_cable_plug_angvel" objtype="body"
-            objname="task_board_cable_plug" />
-    </sensor>
 </mujoco>

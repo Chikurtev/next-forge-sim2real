@@ -64,8 +64,8 @@ def generate_launch_description():
         parameters=[
             {
                 'model_path': model_path,
-                'width': '1600',
-                'height': '1200',
+                'width': 1600,
+                'height': 1200,
             }
         ],
         output='screen'
